@@ -33,6 +33,10 @@ android {
 	kotlinOptions {
 		jvmTarget = "11"
 	}
+
+	buildFeatures {
+		buildConfig = true
+	}
 }
 
 dependencies {
@@ -43,4 +47,7 @@ dependencies {
 	testImplementation(libs.junit)
 	androidTestImplementation(libs.androidx.junit)
 	androidTestImplementation(libs.androidx.espresso.core)
+	implementation(libs.okhttp.v4110)
+	implementation(libs.kotlinx.coroutines.android)
+	implementation(libs.androidx.work.runtime.ktx.v2105)
 }

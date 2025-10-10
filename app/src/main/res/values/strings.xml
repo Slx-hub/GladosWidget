@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">GladosWidget</string>
+    <string name="widget_button_text">Press Me!</string>
 </resources>
