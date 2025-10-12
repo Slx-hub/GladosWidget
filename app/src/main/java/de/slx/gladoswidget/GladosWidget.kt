@@ -30,6 +30,9 @@ class GladosWidget : AppWidgetProvider() {
         private const val ACTION_LIVINGROOM_OFF = "de.slx.gladoswidget.LIVINGROOM_OFF"
         private const val ACTION_BEDROOM_ON = "de.slx.gladoswidget.BEDROOM_ON"
         private const val ACTION_BEDROOM_OFF = "de.slx.gladoswidget.BEDROOM_OFF"
+        private const val ACTION_ALARM_ON = "de.slx.gladoswidget.ALARM_ON"
+        private const val ACTION_ALARM_OFF = "de.slx.gladoswidget.ALARM_OFF"
+        private const val ACTION_SONOS_RESET = "de.slx.gladoswidget.SONOS_RESET"
         private const val WORK_TAG_PREFIX = "LightState"
     }
 
@@ -60,6 +63,13 @@ class GladosWidget : AppWidgetProvider() {
         setupButton(context, views, ACTION_BEDROOM_ON, R.id.btn_bedroom_on, 2)
         setupButton(context, views, ACTION_BEDROOM_OFF, R.id.btn_bedroom_off, 3)
 
+        // Alarm buttons
+        setupButton(context, views, ACTION_ALARM_ON, R.id.btn_alarm_on, 4)
+        setupButton(context, views, ACTION_ALARM_OFF, R.id.btn_alarm_off, 5)
+
+        // Sonos button
+        setupButton(context, views, ACTION_SONOS_RESET, R.id.btn_sonos_reset, 6)
+
         appWidgetManager.updateAppWidget(appWidgetId, views)
     }
 
@@ -86,32 +96,41 @@ class GladosWidget : AppWidgetProvider() {
         super.onReceive(context, intent)
         Log.d(TAG, "onReceive called with action: ${intent.action}")
 
-        val (source, state) = when (intent.action) {
-            ACTION_LIVINGROOM_ON -> "livingroom" to "on"
-            ACTION_LIVINGROOM_OFF -> "livingroom" to "off"
-            ACTION_BEDROOM_ON -> "bedroom" to "on"
-            ACTION_BEDROOM_OFF -> "bedroom" to "off"
+        val (endpoint, params) = when (intent.action) {
+            ACTION_LIVINGROOM_ON -> "ChangeLightState" to mapOf("source" to "livingroom", "state" to "on")
+            ACTION_LIVINGROOM_OFF -> "ChangeLightState" to mapOf("source" to "livingroom", "state" to "off")
+            ACTION_BEDROOM_ON -> "ChangeLightState" to mapOf("source" to "bedroom", "state" to "on")
+            ACTION_BEDROOM_OFF -> "ChangeLightState" to mapOf("source" to "bedroom", "state" to "off")
+            ACTION_ALARM_ON -> "ChangeAlarmState" to mapOf("state" to "on")
+            ACTION_ALARM_OFF -> "ChangeAlarmState" to mapOf("state" to "off")
+            ACTION_SONOS_RESET -> "ResetSocket" to mapOf("socket_source" to "sonos")
             else -> return
+        }
+
+        val workTag = buildString {
+            append("$WORK_TAG_PREFIX:$endpoint")
+            params.forEach { (key, value) ->
+                append(":$value")
+            }
         }
 
         val workRequest = OneTimeWorkRequestBuilder<HttpRequestWorker>()
             .setBackoffCriteria(BackoffPolicy.LINEAR, 10, TimeUnit.SECONDS)
             .setInputData(
                 Data.Builder()
-                    .putString("endpoint", "ChangeLightState")
-                    .putString("source", source)
-                    .putString("state", state)
+                    .putString("endpoint", endpoint)
+                    .putAll(params)
                     .build()
             )
-            .addTag("$WORK_TAG_PREFIX:$source:$state")
+            .addTag(workTag)
             .build()
 
         WorkManager.getInstance(context).enqueueUniqueWork(
-            "$WORK_TAG_PREFIX:$source:$state",
+            workTag,
             ExistingWorkPolicy.REPLACE,
             workRequest
         )
-        Log.d(TAG, "Work request scheduled for endpoint: ChangeLightState, source: $source, state: $state")
+        Log.d(TAG, "Work request scheduled for endpoint: $endpoint, params: $params")
     }
 }
 
@@ -134,7 +153,14 @@ class HttpRequestWorker(
                 val state = inputData.getString("state") ?: return Result.failure()
                 "$BASE_URL/$endpoint?source=$source&state=$state"
             }
-            // Add more endpoints here with their specific parameter handling
+            "ChangeAlarmState" -> {
+                val state = inputData.getString("state") ?: return Result.failure()
+                "$BASE_URL/$endpoint?state=$state"
+            }
+            "ResetSocket" -> {
+                val socketSource = inputData.getString("socket_source") ?: return Result.failure()
+                "$BASE_URL/$endpoint?socket_source=$socketSource"
+            }
             else -> return Result.failure()
         }
 

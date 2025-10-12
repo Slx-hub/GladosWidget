@@ -7,6 +7,16 @@
     android:background="#1A1A1A">
 
     <!-- Livingroom Row -->
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="34dp"
+        android:fontFamily="sans-serif"
+        android:text="GLaDOS portable controller"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -15,26 +25,25 @@
         android:gravity="center_vertical">
 
         <TextView
-            android:layout_width="0dp"
+            style="@style/Widget.GladosWidget.Label"
+            android:layout_width="@dimen/widget_label_width"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Livingroom"
-            style="@style/Widget.GladosWidget.Label" />
+            android:text="Livingroom" />
 
         <Button
             android:id="@+id/btn_livingroom_on"
-            android:layout_width="wrap_content"
-            android:layout_height="32dp"
-            android:text="On"
+            style="@style/Widget.GladosWidget.Button"
+            android:layout_width="@dimen/widget_button_width"
+            android:layout_height="@dimen/widget_button_height"
             android:layout_marginEnd="4dp"
-            style="@style/Widget.GladosWidget.Button" />
+            android:text="On" />
 
         <Button
             android:id="@+id/btn_livingroom_off"
-            android:layout_width="wrap_content"
-            android:layout_height="32dp"
-            android:text="Off"
-            style="@style/Widget.GladosWidget.Button" />
+            style="@style/Widget.GladosWidget.Button"
+            android:layout_width="@dimen/widget_button_width"
+            android:layout_height="@dimen/widget_button_height"
+            android:text="Off" />
     </LinearLayout>
 
     <!-- Bedroom Row -->
@@ -46,26 +55,25 @@
         android:gravity="center_vertical">
 
         <TextView
-            android:layout_width="0dp"
+            style="@style/Widget.GladosWidget.Label"
+            android:layout_width="@dimen/widget_label_width"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Bedroom"
-            style="@style/Widget.GladosWidget.Label" />
+            android:text="Bedroom" />
 
         <Button
             android:id="@+id/btn_bedroom_on"
-            android:layout_width="wrap_content"
-            android:layout_height="32dp"
-            android:text="On"
+            style="@style/Widget.GladosWidget.Button"
+            android:layout_width="@dimen/widget_button_width"
+            android:layout_height="@dimen/widget_button_height"
             android:layout_marginEnd="4dp"
-            style="@style/Widget.GladosWidget.Button" />
+            android:text="On" />
 
         <Button
             android:id="@+id/btn_bedroom_off"
-            android:layout_width="wrap_content"
-            android:layout_height="32dp"
-            android:text="Off"
-            style="@style/Widget.GladosWidget.Button" />
+            style="@style/Widget.GladosWidget.Button"
+            android:layout_width="@dimen/widget_button_width"
+            android:layout_height="@dimen/widget_button_height"
+            android:text="Off" />
     </LinearLayout>
 
     <!-- Alarm Row -->
@@ -73,13 +81,50 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:layout_marginBottom="4dp"
         android:gravity="center_vertical">
 
         <TextView
-            android:layout_width="match_parent"
+            style="@style/Widget.GladosWidget.Label"
+            android:layout_width="@dimen/widget_label_width"
             android:layout_height="wrap_content"
-            android:text="Alarm"
-            style="@style/Widget.GladosWidget.Label" />
+            android:text="Alarm" />
+
+        <Button
+            android:id="@+id/btn_alarm_on"
+            style="@style/Widget.GladosWidget.Button"
+            android:layout_width="@dimen/widget_button_width"
+            android:layout_height="@dimen/widget_button_height"
+            android:layout_marginEnd="4dp"
+            android:text="On" />
+
+        <Button
+            android:id="@+id/btn_alarm_off"
+            style="@style/Widget.GladosWidget.Button"
+            android:layout_width="@dimen/widget_button_width"
+            android:layout_height="@dimen/widget_button_height"
+            android:text="Off" />
+    </LinearLayout>
+
+    <!-- Sonos Row -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <TextView
+            style="@style/Widget.GladosWidget.Label"
+            android:layout_width="@dimen/widget_label_width"
+            android:layout_height="wrap_content"
+            android:text="Sonos" />
+
+        <Button
+            android:id="@+id/btn_sonos_reset"
+            style="@style/Widget.GladosWidget.Button"
+            android:layout_width="@dimen/widget_double_button_width"
+            android:layout_height="@dimen/widget_button_height"
+            android:text="Reset" />
     </LinearLayout>
 
 </LinearLayout>

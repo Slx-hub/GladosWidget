@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="widget_label_width">130dp</dimen>
+    <dimen name="widget_button_height">32dp</dimen>
+    <dimen name="widget_half_button_width">40dp</dimen>
+    <dimen name="widget_button_width">84dp</dimen>
+    <dimen name="widget_double_button_width">172dp</dimen>
+</resources>
+
