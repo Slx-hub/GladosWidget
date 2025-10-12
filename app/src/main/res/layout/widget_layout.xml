@@ -121,11 +121,20 @@
             android:text="Sonos" />
 
         <Button
-            android:id="@+id/btn_sonos_reset"
+            android:id="@+id/btn_sonos_on"
             style="@style/Widget.GladosWidget.Button"
-            android:layout_width="@dimen/widget_double_button_width"
+            android:layout_width="@dimen/widget_button_width"
             android:layout_height="@dimen/widget_button_height"
-            android:text="Reset" />
+            android:layout_marginEnd="4dp"
+            android:text="On" />
+
+        <Button
+            android:id="@+id/btn_sonos_off"
+            style="@style/Widget.GladosWidget.Button"
+            android:layout_width="@dimen/widget_button_width"
+            android:layout_height="@dimen/widget_button_height"
+            android:text="Off" />
+
     </LinearLayout>
 
 </LinearLayout>

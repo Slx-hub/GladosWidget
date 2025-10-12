@@ -32,8 +32,9 @@ class GladosWidget : AppWidgetProvider() {
         private const val ACTION_BEDROOM_OFF = "de.slx.gladoswidget.BEDROOM_OFF"
         private const val ACTION_ALARM_ON = "de.slx.gladoswidget.ALARM_ON"
         private const val ACTION_ALARM_OFF = "de.slx.gladoswidget.ALARM_OFF"
-        private const val ACTION_SONOS_RESET = "de.slx.gladoswidget.SONOS_RESET"
-        private const val WORK_TAG_PREFIX = "LightState"
+        private const val ACTION_SONOS_ON = "de.slx.gladoswidget.SONOS_ON"
+        private const val ACTION_SONOS_OFF = "de.slx.gladoswidget.SONOS_OFF"
+        private const val WORK_TAG_PREFIX = "GladosWidgetWork"
     }
 
     override fun onUpdate(
@@ -67,8 +68,9 @@ class GladosWidget : AppWidgetProvider() {
         setupButton(context, views, ACTION_ALARM_ON, R.id.btn_alarm_on, 4)
         setupButton(context, views, ACTION_ALARM_OFF, R.id.btn_alarm_off, 5)
 
-        // Sonos button
-        setupButton(context, views, ACTION_SONOS_RESET, R.id.btn_sonos_reset, 6)
+        // Sonos buttons
+        setupButton(context, views, ACTION_SONOS_ON, R.id.btn_sonos_on, 6)
+        setupButton(context, views, ACTION_SONOS_OFF, R.id.btn_sonos_off, 7)
 
         appWidgetManager.updateAppWidget(appWidgetId, views)
     }
@@ -103,7 +105,8 @@ class GladosWidget : AppWidgetProvider() {
             ACTION_BEDROOM_OFF -> "ChangeLightState" to mapOf("source" to "bedroom", "state" to "off")
             ACTION_ALARM_ON -> "ChangeAlarmState" to mapOf("state" to "on")
             ACTION_ALARM_OFF -> "ChangeAlarmState" to mapOf("state" to "off")
-            ACTION_SONOS_RESET -> "ResetSocket" to mapOf("socket_source" to "sonos")
+            ACTION_SONOS_ON -> "ChangeSocketState" to mapOf("source" to "sonos", "state" to "on")
+            ACTION_SONOS_OFF -> "ChangeSocketState" to mapOf("source" to "sonos", "state" to "off")
             else -> return
         }
 
@@ -157,9 +160,10 @@ class HttpRequestWorker(
                 val state = inputData.getString("state") ?: return Result.failure()
                 "$BASE_URL/$endpoint?state=$state"
             }
-            "ResetSocket" -> {
-                val socketSource = inputData.getString("socket_source") ?: return Result.failure()
-                "$BASE_URL/$endpoint?socket_source=$socketSource"
+            "ChangeSocketState" -> {
+                val source = inputData.getString("source") ?: return Result.failure()
+                val state = inputData.getString("state") ?: return Result.failure()
+                "$BASE_URL/$endpoint?source=$source&state=$state"
             }
             else -> return Result.failure()
         }
