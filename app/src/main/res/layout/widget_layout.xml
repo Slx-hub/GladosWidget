@@ -8,6 +8,7 @@
     android:padding="8dp">
 
     <!-- Livingroom Row -->
+
     <TextView
         android:id="@+id/textView"
         android:layout_width="match_parent"
@@ -59,6 +60,35 @@
             style="@style/Widget.GladosWidget.Label"
             android:layout_width="@dimen/widget_label_width"
             android:layout_height="wrap_content"
+            android:text="Bathroom" />
+
+        <Button
+            android:id="@+id/btn_bathroom_on"
+            style="@style/Widget.GladosWidget.Button"
+            android:layout_width="@dimen/widget_button_width"
+            android:layout_height="@dimen/widget_button_height"
+            android:layout_marginEnd="4dp"
+            android:text="On" />
+
+        <Button
+            android:id="@+id/btn_bathroom_dim"
+            style="@style/Widget.GladosWidget.Button"
+            android:layout_width="@dimen/widget_button_width"
+            android:layout_height="@dimen/widget_button_height"
+            android:text="Dim" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/Widget.GladosWidget.Label"
+            android:layout_width="@dimen/widget_label_width"
+            android:layout_height="wrap_content"
             android:text="Bedroom" />
 
         <Button
@@ -77,7 +107,39 @@
             android:text="Off" />
     </LinearLayout>
 
+    <!-- Bathroom Row (new) -->
+
     <!-- Alarm Row -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/Widget.GladosWidget.Label"
+            android:layout_width="@dimen/widget_label_width"
+            android:layout_height="wrap_content"
+            android:text="Sonos" />
+
+        <Button
+            android:id="@+id/btn_sonos_on"
+            style="@style/Widget.GladosWidget.Button"
+            android:layout_width="@dimen/widget_button_width"
+            android:layout_height="@dimen/widget_button_height"
+            android:layout_marginEnd="4dp"
+            android:text="On" />
+
+        <Button
+            android:id="@+id/btn_sonos_off"
+            style="@style/Widget.GladosWidget.Button"
+            android:layout_width="@dimen/widget_button_width"
+            android:layout_height="@dimen/widget_button_height"
+            android:text="Off" />
+
+    </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -107,10 +169,10 @@
             android:text="Off" />
     </LinearLayout>
 
-    <!-- Sonos Row -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="4dp"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
@@ -118,23 +180,28 @@
             style="@style/Widget.GladosWidget.Label"
             android:layout_width="@dimen/widget_label_width"
             android:layout_height="wrap_content"
-            android:text="Sonos" />
+            android:text="└ Set Time"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="@dimen/widget_button_width"
+            android:layout_height="@dimen/widget_button_height"
+            android:text="TODO"
+            android:layout_marginEnd="4dp"
+            android:textColor="@color/white"
+            android:textSize="14sp" />
 
         <Button
-            android:id="@+id/btn_sonos_on"
+            android:id="@+id/btn_alarm_send"
             style="@style/Widget.GladosWidget.Button"
             android:layout_width="@dimen/widget_button_width"
             android:layout_height="@dimen/widget_button_height"
             android:layout_marginEnd="4dp"
-            android:text="On" />
-
-        <Button
-            android:id="@+id/btn_sonos_off"
-            style="@style/Widget.GladosWidget.Button"
-            android:layout_width="@dimen/widget_button_width"
-            android:layout_height="@dimen/widget_button_height"
-            android:text="Off" />
+            android:text="Send" />
 
     </LinearLayout>
+
+    <!-- Sonos Row -->
 
 </LinearLayout>

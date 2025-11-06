@@ -34,6 +34,9 @@ class GladosWidget : AppWidgetProvider() {
         private const val ACTION_ALARM_OFF = "de.slx.gladoswidget.ALARM_OFF"
         private const val ACTION_SONOS_ON = "de.slx.gladoswidget.SONOS_ON"
         private const val ACTION_SONOS_OFF = "de.slx.gladoswidget.SONOS_OFF"
+        private const val ACTION_BATHROOM_ON = "de.slx.gladoswidget.BATHROOM_ON"
+        private const val ACTION_BATHROOM_DIM = "de.slx.gladoswidget.BATHROOM_DIM"
+
         private const val WORK_TAG_PREFIX = "GladosWidgetWork"
     }
 
@@ -59,6 +62,10 @@ class GladosWidget : AppWidgetProvider() {
         // Livingroom buttons
         setupButton(context, views, ACTION_LIVINGROOM_ON, R.id.btn_livingroom_on, 0)
         setupButton(context, views, ACTION_LIVINGROOM_OFF, R.id.btn_livingroom_off, 1)
+
+        // Bathroom buttons
+        setupButton(context, views, ACTION_BATHROOM_ON, R.id.btn_bathroom_on, 8)
+        setupButton(context, views, ACTION_BATHROOM_DIM, R.id.btn_bathroom_dim, 9)
 
         // Bedroom buttons
         setupButton(context, views, ACTION_BEDROOM_ON, R.id.btn_bedroom_on, 2)
@@ -103,6 +110,8 @@ class GladosWidget : AppWidgetProvider() {
             ACTION_LIVINGROOM_OFF -> "ChangeLightState" to mapOf("source" to "livingroom", "state" to "off")
             ACTION_BEDROOM_ON -> "ChangeLightState" to mapOf("source" to "bedroom", "state" to "on")
             ACTION_BEDROOM_OFF -> "ChangeLightState" to mapOf("source" to "bedroom", "state" to "off")
+            ACTION_BATHROOM_ON -> "ChangeLightState" to mapOf("source" to "bathroom", "state" to "on")
+            ACTION_BATHROOM_DIM -> "ChangeLightState" to mapOf("source" to "bathroom", "state" to "on", "mode" to "dim")
             ACTION_ALARM_ON -> "ChangeAlarmState" to mapOf("state" to "on")
             ACTION_ALARM_OFF -> "ChangeAlarmState" to mapOf("state" to "off")
             ACTION_SONOS_ON -> "ChangeSocketState" to mapOf("source" to "sonos", "state" to "on")
