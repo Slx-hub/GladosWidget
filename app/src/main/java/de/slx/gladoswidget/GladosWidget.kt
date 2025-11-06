@@ -158,24 +158,21 @@ class HttpRequestWorker(
     override fun doWork(): Result {
         val endpoint = inputData.getString("endpoint") ?: return Result.failure()
 
-        // Build URL with parameters based on endpoint
-        val url = when (endpoint) {
-            "ChangeLightState" -> {
-                val source = inputData.getString("source") ?: return Result.failure()
-                val state = inputData.getString("state") ?: return Result.failure()
-                "$BASE_URL/$endpoint?source=$source&state=$state"
+        // Build URL with all parameters from inputData (excluding "endpoint")
+        val urlBuilder = StringBuilder("$BASE_URL/$endpoint")
+        val params = mutableListOf<String>()
+
+        inputData.keyValueMap.forEach { (key, value) ->
+            if (key != "endpoint" && value != null) {
+                params.add("$key=$value")
             }
-            "ChangeAlarmState" -> {
-                val state = inputData.getString("state") ?: return Result.failure()
-                "$BASE_URL/$endpoint?state=$state"
-            }
-            "ChangeSocketState" -> {
-                val source = inputData.getString("source") ?: return Result.failure()
-                val state = inputData.getString("state") ?: return Result.failure()
-                "$BASE_URL/$endpoint?source=$source&state=$state"
-            }
-            else -> return Result.failure()
         }
+
+        if (params.isNotEmpty()) {
+            urlBuilder.append("?").append(params.joinToString("&"))
+        }
+
+        val url = urlBuilder.toString()
 
         Log.d(TAG, "Starting HTTP request work for endpoint: $endpoint")
         val client = OkHttpClient.Builder()
